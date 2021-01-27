@@ -17,24 +17,48 @@ export const AddContact = () => {
 				<form>
 					<div className="form-group">
 						<label>Full Name</label>
-						<input type="text" className="form-control" placeholder="Full Name" />
+						<input
+							type="text"
+							className="form-control"
+							placeholder="Full Name"
+							value={newContact.full_name}
+							onChange={e => setNewContact({ ...newContact, full_name: e.target.value })}
+						/>
 					</div>
 					<div className="form-group">
 						<label>Email</label>
-						<input type="email" className="form-control" placeholder="Enter email" />
+						<input
+							type="email"
+							className="form-control"
+							placeholder="Enter email"
+							value={newContact.email}
+							onChange={e => setNewContact({ ...newContact, email: e.target.value })}
+						/>
 					</div>
 					<div className="form-group">
 						<label>Phone</label>
-						<input type="phone" className="form-control" placeholder="Enter phone" />
+						<input
+							type="phone"
+							className="form-control"
+							placeholder="Enter phone"
+							value={newContact.phone}
+							onChange={e => setNewContact({ ...newContact, phone: e.target.value })}
+						/>
 					</div>
 					<div className="form-group">
 						<label>Address</label>
-						<input type="text" className="form-control" placeholder="Enter address" />
+						<input
+							type="text"
+							className="form-control"
+							placeholder="Enter address"
+							value={newContact.address}
+							onChange={e => setNewContact({ ...newContact, address: e.target.value })}
+						/>
 					</div>
 					<button
 						type="button"
 						className="btn btn-primary form-control"
-						onClick={() => actions.addContact("newContact")}>
+						onClick={() => actions.addContact(newContact)}>
 						Save
 					</button>
 					<Link className="mt-3 w-100 text-center" to="/">
