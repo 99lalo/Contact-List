@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import MikePhoto from "../../img/m101.jpg";
 import { Context } from "../store/appContext";
@@ -16,9 +16,14 @@ export const ContactCard = props => {
 				</div>
 				<div className="col-12 col-sm-6 col-md-9 text-center text-sm-left">
 					<div className=" float-right">
-						<button className="btn">
+						<Link
+							className="text-white"
+							to={{
+								pathname: "/edit",
+								state: props
+							}}>
 							<i className="fas fa-pencil-alt mr-3" />
-						</button>
+						</Link>
 						<button className="btn" onClick={() => props.onDelete()}>
 							<i className="fas fa-trash-alt" />
 						</button>
@@ -56,7 +61,8 @@ export const ContactCard = props => {
 ContactCard.propTypes = {
 	history: PropTypes.object,
 	onDelete: PropTypes.func,
-	contact: PropTypes.object
+	contact: PropTypes.object,
+	onEdit: PropTypes.func
 };
 
 /**

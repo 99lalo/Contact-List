@@ -25,8 +25,61 @@ const getState = ({ getStore, setStore }) => {
 			},
 			addContact: newContact => {
 				let newStore = getStore();
-				let updatedContacts = newStore.contacts.concat(newContact);
-				setStore({ contacts: updatedContacts });
+				fetch("https://assets.breatheco.de/apis/fake/contact/", {
+					method: "POST",
+					body: JSON.stringify(newContact),
+					headers: {
+						"Content-Type": "application/json"
+					}
+				})
+					.then(function(response) {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						// Read the response as json.
+						return response.json();
+					})
+					.then(function(responseAsJson) {
+						fetch("https://assets.breatheco.de/apis/fake/contact/agenda/99lalo")
+							.then(function(response) {
+								if (!response.ok) {
+									throw Error(response.statusText);
+								}
+								// Read the response as json.
+								return response.json();
+							})
+							.then(function(responseAsJson) {
+								// Do stuff with the JSON
+								setStore({ contacts: responseAsJson });
+							})
+							.catch(function(error) {
+								console.log("Looks like there was a problem: \n", error);
+							});
+					})
+					.catch(function(error) {
+						console.log("Looks like there was a problem: \n", error);
+					});
+			},
+			deleteContact: id => {
+				fetch(`https://assets.breatheco.de/apis/fake/contact/${id}`, { method: "DELETE" })
+					.then(response => response.json())
+					.then(response => {
+						fetch("https://assets.breatheco.de/apis/fake/contact/agenda/99lalo")
+							.then(function(response) {
+								if (!response.ok) {
+									throw Error(response.statusText);
+								}
+								// Read the response as json.
+								return response.json();
+							})
+							.then(function(responseAsJson) {
+								// Do stuff with the JSON
+								setStore({ contacts: responseAsJson });
+							})
+							.catch(function(error) {
+								console.log("Looks like there was a problem: \n", error);
+							});
+					});
 			}
 		}
 	};

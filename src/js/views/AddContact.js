@@ -2,14 +2,16 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-export const AddContact = () => {
+export const AddContact = props => {
 	const { store, actions } = useContext(Context);
 	const [newContact, setNewContact] = useState({
 		full_name: "",
 		email: "",
+		agenda_slug: "99lalo",
 		phone: "",
 		address: ""
 	});
+	const handleChange = e => setNewContact({ ...newContact, [e.target.name]: e.target.value });
 	return (
 		<div className="container">
 			<div>
@@ -18,41 +20,45 @@ export const AddContact = () => {
 					<div className="form-group">
 						<label>Full Name</label>
 						<input
+							name="full_name"
 							type="text"
 							className="form-control"
 							placeholder="Full Name"
 							value={newContact.full_name}
-							onChange={e => setNewContact({ ...newContact, full_name: e.target.value })}
+							onChange={handleChange}
 						/>
 					</div>
 					<div className="form-group">
 						<label>Email</label>
 						<input
+							name="email"
 							type="email"
 							className="form-control"
 							placeholder="Enter email"
 							value={newContact.email}
-							onChange={e => setNewContact({ ...newContact, email: e.target.value })}
+							onChange={handleChange}
 						/>
 					</div>
 					<div className="form-group">
 						<label>Phone</label>
 						<input
+							name="phone"
 							type="phone"
 							className="form-control"
 							placeholder="Enter phone"
 							value={newContact.phone}
-							onChange={e => setNewContact({ ...newContact, phone: e.target.value })}
+							onChange={handleChange}
 						/>
 					</div>
 					<div className="form-group">
 						<label>Address</label>
 						<input
+							name="address"
 							type="text"
 							className="form-control"
 							placeholder="Enter address"
 							value={newContact.address}
-							onChange={e => setNewContact({ ...newContact, address: e.target.value })}
+							onChange={handleChange}
 						/>
 					</div>
 					<button
