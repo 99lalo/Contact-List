@@ -1,21 +1,24 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-
-export const AddContact = props => {
+import PropTypes from "prop-types";
+export const EditContact = props => {
 	const { store, actions } = useContext(Context);
-	const [newContact, setNewContact] = useState({
-		full_name: "",
-		email: "",
+	const [editContact, setEditedContact] = useState(
+      {  full_name: props.location.state.full_name,
+		email: props.location.state.email,
 		agenda_slug: "99lalo",
-		phone: "",
-		address: ""
-	});
-	const handleChange = e => setNewContact({ ...newContact, [e.target.name]: e.target.value });
+		phone: props.location.state.phone,
+        address: props.location.state.address,
+        id: props.location.state.id}
+    );
+    console.log(props);
+    
+	const handleChange = e => setEditedContact({ ...newContact, [e.target.name]: e.target.value });
 	return (
 		<div className="container">
 			<div>
-				<h1 className="text-center mt-5">Add a new contact</h1>
+				<h1 className="text-center mt-5">Edit contact</h1>
 				<form>
 					<div className="form-group">
 						<label>Full Name</label>
@@ -24,7 +27,7 @@ export const AddContact = props => {
 							type="text"
 							className="form-control"
 							placeholder="Full Name"
-							value={newContact.full_name}
+							value={editedContact.full_name}
 							onChange={handleChange}
 						/>
 					</div>
@@ -35,7 +38,7 @@ export const AddContact = props => {
 							type="email"
 							className="form-control"
 							placeholder="Enter email"
-							value={newContact.email}
+							value={editedContact.email}
 							onChange={handleChange}
 						/>
 					</div>
@@ -46,7 +49,7 @@ export const AddContact = props => {
 							type="phone"
 							className="form-control"
 							placeholder="Enter phone"
-							value={newContact.phone}
+							value={editedContact.phone}
 							onChange={handleChange}
 						/>
 					</div>
@@ -57,14 +60,14 @@ export const AddContact = props => {
 							type="text"
 							className="form-control"
 							placeholder="Enter address"
-							value={newContact.address}
+							value={editedContact.address}
 							onChange={handleChange}
 						/>
 					</div>
 					<Link
 						to="/"
 						className="btn btn-primary form-control"
-						onClick={() => actions.addContact(newContact)}>
+						onClick={() => actions.editContact(editedContact)}>
 						Save
 					</Link>
 					<Link className="mt-3 w-100 text-center" to="/">
@@ -74,4 +77,7 @@ export const AddContact = props => {
 			</div>
 		</div>
 	);
+};
+EditContact.propTypes = {
+	location: PropTypes.object,
 };

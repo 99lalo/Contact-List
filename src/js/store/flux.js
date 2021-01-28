@@ -24,7 +24,6 @@ const getState = ({ getStore, setStore }) => {
 				// Remember to use the scope: scope.state.store & scope.setState()
 			},
 			addContact: newContact => {
-				let newStore = getStore();
 				fetch("https://assets.breatheco.de/apis/fake/contact/", {
 					method: "POST",
 					body: JSON.stringify(newContact),
@@ -79,6 +78,42 @@ const getState = ({ getStore, setStore }) => {
 							.catch(function(error) {
 								console.log("Looks like there was a problem: \n", error);
 							});
+					});
+			},
+			editContact: contact => {
+				fetch(`https://assets.breatheco.de/apis/fake/contact/${contact.id}`, {
+					method: "PUT",
+					body: JSON.stringify(contact),
+					headers: {
+						"Content-Type": "application/json"
+					}
+				})
+					.then(function(response) {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						// Read the response as json.
+						return response.json();
+					})
+					.then(function(responseAsJson) {
+						fetch("https://assets.breatheco.de/apis/fake/contact/agenda/99lalo")
+							.then(function(response) {
+								if (!response.ok) {
+									throw Error(response.statusText);
+								}
+								// Read the response as json.
+								return response.json();
+							})
+							.then(function(responseAsJson) {
+								// Do stuff with the JSON
+								setStore({ contacts: responseAsJson });
+							})
+							.catch(function(error) {
+								console.log("Looks like there was a problem: \n", error);
+							});
+					})
+					.catch(function(error) {
+						console.log("Looks like there was a problem: \n", error);
 					});
 			}
 		}

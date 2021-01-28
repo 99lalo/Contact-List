@@ -17,10 +17,10 @@ export const ContactCard = props => {
 				<div className="col-12 col-sm-6 col-md-9 text-center text-sm-left">
 					<div className=" float-right">
 						<Link
-							className="text-white"
+							className="btn"
 							to={{
-								pathname: "/edit",
-								state: props
+								pathname: `edit/${props.contact.id}`,
+								state: props.contact
 							}}>
 							<i className="fas fa-pencil-alt mr-3" />
 						</Link>
