@@ -7,7 +7,7 @@ import injectContext from "./store/appContext";
 
 import { Contacts } from "./views/Contacts.js";
 import { AddContact } from "./views/AddContact.js";
-import { EditContact } from "./views/AddContact.js";
+import { EditContact } from "./views/EditContact.js";
 
 export const Layout = () => {
 	return (

@@ -4,17 +4,15 @@ import { Context } from "../store/appContext";
 import PropTypes from "prop-types";
 export const EditContact = props => {
 	const { store, actions } = useContext(Context);
-	const [editContact, setEditedContact] = useState(
-      {  full_name: props.location.state.full_name,
+	const [editedContact, setEditedContact] = useState({
+		full_name: props.location.state.full_name,
 		email: props.location.state.email,
 		agenda_slug: "99lalo",
 		phone: props.location.state.phone,
-        address: props.location.state.address,
-        id: props.location.state.id}
-    );
-    console.log(props);
-    
-	const handleChange = e => setEditedContact({ ...newContact, [e.target.name]: e.target.value });
+		address: props.location.state.address,
+		id: props.location.state.id
+	});
+	const handleChange = e => setEditedContact({ ...editedContact, [e.target.name]: e.target.value });
 	return (
 		<div className="container">
 			<div>
@@ -79,5 +77,5 @@ export const EditContact = props => {
 	);
 };
 EditContact.propTypes = {
-	location: PropTypes.object,
+	location: PropTypes.object
 };
