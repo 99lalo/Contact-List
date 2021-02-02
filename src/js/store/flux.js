@@ -59,7 +59,7 @@ const getState = ({ getStore, setStore }) => {
 						console.log("Looks like there was a problem: \n", error);
 					});
 			},
-			deleteContact: id => {
+			deleteContact: (id, close) => {
 				fetch(`https://assets.breatheco.de/apis/fake/contact/${id}`, { method: "DELETE" })
 					.then(response => response.json())
 					.then(response => {
@@ -79,6 +79,7 @@ const getState = ({ getStore, setStore }) => {
 								console.log("Looks like there was a problem: \n", error);
 							});
 					});
+				close();
 			},
 			editContact: contact => {
 				fetch(`https://assets.breatheco.de/apis/fake/contact/${contact.id}`, {
